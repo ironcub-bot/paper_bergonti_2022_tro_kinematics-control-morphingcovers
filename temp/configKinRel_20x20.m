@@ -54,11 +54,11 @@ stgs.controller.costFunction.gainLinkAngVelStarOpposite       = 100;
 stgs.controller.costFunction.useFeedForwardTermLinkAngVelStar = 1;
 
 stgs.controller.constraints.eq2inep            = 0;
-stgs.controller.constraints.limitPassiveAngVel = 5*pi/180; % "controller" limit (there is also the model limit)
-stgs.controller.constraints.limitMotorVel      = 5*pi/180; % "controller" limit (there is also the model limit)
+stgs.controller.constraints.limitPassiveAngVel = 5*pi/180;  % "controller" limit (there is also the model limit)
+stgs.controller.constraints.limitMotorVel      = 5*pi/180;  % "controller" limit (there is also the model limit)
 stgs.controller.constraints.limitRoM           = 50*pi/180; % "controller" limit (there is also the model limit)
 
-stgs.controller.constraints.byPassModelLimits = 1;
+stgs.controller.constraints.byPassModelLimits = 0;
 
 %% Noise
 

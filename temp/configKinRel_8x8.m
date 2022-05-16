@@ -2,8 +2,8 @@ strTime = [datestr(now,'yyyy-mm-dd'),'_h',datestr(now,'HH-MM')];
 
 %% Desired shape
 
-stgs.desiredShape.fun = @(x,y)   5*x.*y.*cos(0.5*y);
-stgs.desiredShape.fun = @(x,y,t) stgs.desiredShape.fun(x,y);
+stgs.desiredShape.fun = @(x,y)   0.005*(5*cos(10*x-2)+5*cos(10*x-20*y));
+stgs.desiredShape.fun = @(x,y,t) stgs.desiredShape.fun(x-t/8e1,y-t/8e1);
 stgs.desiredShape.fun = @(x,y,t) stgs.desiredShape.fun(x,y,t)-stgs.desiredShape.fun(0,0,t);
 stgs.desiredShape.invertNormals = 1;
 
@@ -22,7 +22,7 @@ stgs.stateKin.nullSpace.toleranceRankRevealing = [10 1e-5];
 %% Integration Settings
 
 stgs.integrator.maxTimeStep      = 1e-2;
-stgs.integrator.limitMaximumTime = 12;
+stgs.integrator.limitMaximumTime = 50;
 
 stgs.integrator.odeOpts.solver = @ode45;
 stgs.integrator.odeOpts.RelTol = 1e-3;
@@ -54,15 +54,15 @@ stgs.controller.costFunction.gainLinkAngVelStarOpposite       = 100;
 stgs.controller.costFunction.useFeedForwardTermLinkAngVelStar = 1;
 
 stgs.controller.constraints.eq2inep            = 0;
-stgs.controller.constraints.limitPassiveAngVel = 5*pi/180; % "controller" limit (there is also the model limit)
-stgs.controller.constraints.limitMotorVel      = 5*pi/180; % "controller" limit (there is also the model limit)
+stgs.controller.constraints.limitPassiveAngVel = 5*pi/180;  % "controller" limit (there is also the model limit)
+stgs.controller.constraints.limitMotorVel      = 5*pi/180;  % "controller" limit (there is also the model limit)
 stgs.controller.constraints.limitRoM           = 50*pi/180; % "controller" limit (there is also the model limit)
 
 stgs.controller.constraints.byPassModelLimits = 0;
 
 %% Noise
 
-stgs.noise.inputCompression.bool         = 1;
+stgs.noise.inputCompression.bool         = 0;
 stgs.noise.inputCompression.maxValue     = 0.2;
 stgs.noise.inputCompression.probMaxValue = 0.1;
 
@@ -80,8 +80,8 @@ stgs.visualizer.statusTracker.workspacePrint.run        = 0;
 stgs.visualizer.statusTracker.workspacePrint.frameRate  = 10;
 
 stgs.visualizer.origin.dimCSYS            = cellCreator.cellLinks{1}.linkDimension/5;
-stgs.visualizer.mBody.bodyCSYS.show       = 1;
-stgs.visualizer.mBody.bodyCSYS.dim        = cellCreator.cellLinks{1}.linkDimension/2;
+stgs.visualizer.mBody.bodyCSYS.show       = 0;
+stgs.visualizer.mBody.bodyCSYS.dim        = cellCreator.cellLinks{1}.linkDimension/10;
 stgs.visualizer.mBody.jointCSYS.show      = 0;
 stgs.visualizer.mBody.jointCSYS.dim       = cellCreator.cellLinks{1}.linkDimension/10;
 
@@ -108,10 +108,10 @@ stgs.visualizer.desiredShape.fun.faceColor     = [0.5 0.7 0.9];
 stgs.visualizer.desiredShape.fun.edgeAlpha     = 0.5;
 stgs.visualizer.desiredShape.fun.faceAlpha     = 0.1;
 stgs.visualizer.desiredShape.fun.update        = 1;
-stgs.visualizer.desiredShape.normal.show       = 1;
-stgs.visualizer.desiredShape.normal.color      = [0.5 0.7 0.9];
+stgs.visualizer.desiredShape.normal.show       = 0;
+stgs.visualizer.desiredShape.normal.color      = 'b';
 stgs.visualizer.desiredShape.normal.linewidth  = 3;
-stgs.visualizer.desiredShape.normal.dim        = cellCreator.cellLinks{1}.linkDimension/3;
+stgs.visualizer.desiredShape.normal.dim        = cellCreator.cellLinks{1}.linkDimension/10;
 stgs.visualizer.desiredShape.points.show       = 0;
 stgs.visualizer.desiredShape.points.color      = 'k';
 stgs.visualizer.desiredShape.points.colorFace  = 'k';
