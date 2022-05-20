@@ -11,25 +11,29 @@ clc
 close all
 fclose('all');
 
-run(fullfile(fileparts(mfilename('fullpath')),'..','src','setup_sim.m'))
+src_full_path      = fullfile(fileparts(mfilename('fullpath')),'..','src');
+datasets_full_path = fullfile(fileparts(mfilename('fullpath')),'..','datasets');
+run(fullfile(src_full_path,'setup_sim.m'))
 
 %% User Parameters
 
 % config.simulation_with_noise
 %   - true  => simulation with Gaussian noise to motor velocity
 %   - false => ideal simulation
-config.simulation_with_noise = 1;
+config.simulation_with_noise = true;
 
 % config.run_only_controller
 %   - true  => load model with motors and its initial configuration.
+%              if this option is true,  the running time is ~10s with a PC with Intel Xeon Gold 6128 3.40GHz and RAM 128GB.
 %   - false => create model, evaluate the initial configuration, and solve the motors placement problem.
-config.run_only_controller   = 0;
+%              if this option is false, the running time is ~30s with a PC with Intel Xeon Gold 6128 3.40GHz and RAM 128GB.
+config.run_only_controller   = false;
 
 %% Prepare Morphing Cover Model with Motors and its Initial Configuration
 
 if config.run_only_controller
     % load model with motors and morphing cover initial configuration.
-    load('initSim1.mat','model','mBodyPosQuat_0')
+    load(fullfile(datasets_full_path,'initSim1.mat'),'model','mBodyPosQuat_0')
     stgs.saving.workspace.name = 'initSim1';
 else
     % 1) create model.

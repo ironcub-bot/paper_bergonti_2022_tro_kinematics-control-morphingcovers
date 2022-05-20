@@ -11,20 +11,24 @@ clc
 close all
 fclose('all');
 
-run(fullfile(fileparts(mfilename('fullpath')),'..','src','setup_sim.m'))
+src_full_path      = fullfile(fileparts(mfilename('fullpath')),'..','src');
+datasets_full_path = fullfile(fileparts(mfilename('fullpath')),'..','datasets');
+run(fullfile(src_full_path,'setup_sim.m'))
 
 %% User Parameters
 
 % config.run_only_controller
 %   - true  => load model with motors and its initial configuration.
+%              if this option is true,  the running time is  ~60s with a PC with Intel Xeon Gold 6128 3.40GHz and RAM 128GB.
 %   - false => create model, evaluate the initial configuration, and solve the motors placement problem.
+%              if this option is false, the running time is ~160s with a PC with Intel Xeon Gold 6128 3.40GHz and RAM 128GB.
 config.run_only_controller   = 0;
 
 %% Prepare Morphing Cover Model with Motors and its Initial Configuration
 
 if config.run_only_controller
     % load model with motors and morphing cover initial configuration.
-    load('initSim4.mat','model','mBodyPosQuat_0')
+    load(fullfile(datasets_full_path,'initSim4.mat'),'model','mBodyPosQuat_0')
     stgs.saving.workspace.name = 'initSim4';
 else
     % 1) create model and state object.
@@ -64,7 +68,7 @@ stgs.visualizer.cameraView.finalRotation.values          = [90,0];
 stgs.visualizer.cameraView.finalRotation.durationTotal   = 3;
 stgs.visualizer.cameraView.finalRotation.pause.start     = 0;
 stgs.visualizer.cameraView.finalRotation.pause.end       = 0;
-stgs.visualizer.background{1}.stlName = 'ironcubLeg.stl';
+stgs.visualizer.background{1}.stlName = 'iRonCub_Leg.stl';
 stgs.visualizer.background{1}.tform_0_originSTL = mystica.rbm.getTformGivenPosRotm(zeros(3,1),mystica.rbm.getRotmGivenEul('rx',0));
 stgs.visualizer.background{1}.scale     = [1 1 1]/1e3;
 stgs.visualizer.background{1}.FaceColor = [0.7 0.7 0.7];
