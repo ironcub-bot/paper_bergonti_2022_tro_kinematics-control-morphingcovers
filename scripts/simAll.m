@@ -1,4 +1,3 @@
-run(fullfile(fileparts(mfilename('fullpath')),'..','..','mystica','deps','setup.m'))
 
 tic;f1_00;t = toc; fileID = fopen(sprintf('f1_00 - t=%.f',t),'w'); fclose(fileID); pause(60);
 tic;f1_01;t = toc; fileID = fopen(sprintf('f1_01 - t=%.f',t),'w'); fclose(fileID); pause(60);
