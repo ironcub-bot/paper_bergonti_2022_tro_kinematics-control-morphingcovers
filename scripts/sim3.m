@@ -58,7 +58,7 @@ stgs.controller.costFunction.weightTaskMinOptiVar             = 0;
 stgs.controller.costFunction.gainLinkAngVelStarAligned        = 30;
 stgs.controller.costFunction.gainLinkAngVelStarOpposite       = 100;
 stgs.controller.costFunction.useFeedForwardTermLinkAngVelStar = 1;
-stgs.controller.constraints.limitPassiveAngVel = 5*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
+stgs.controller.constraints.limitPassiveAngVel = 10*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
 stgs.controller.constraints.limitMotorVel      = 5*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
 stgs.controller.constraints.limitRoM           = 50*pi/180; % [rad]   it can be set up to model limit (i.e. 50*180/pi).
 % stgs: desired Shape
