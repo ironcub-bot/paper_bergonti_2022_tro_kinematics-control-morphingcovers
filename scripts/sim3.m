@@ -14,6 +14,8 @@ fclose('all');
 src_full_path      = fullfile(fileparts(mfilename('fullpath')),'..','src');
 datasets_full_path = fullfile(fileparts(mfilename('fullpath')),'..','datasets');
 run(fullfile(src_full_path,'setup_sim.m'))
+addpath('/home/icub/Software/fbergonti/mystica')
+addpath('/home/icub/Software/fbergonti/casadi-v3.5.5')
 
 %% User Parameters
 
@@ -59,7 +61,7 @@ stgs.controller.costFunction.gainLinkAngVelStarAligned        = 30;
 stgs.controller.costFunction.gainLinkAngVelStarOpposite       = 100;
 stgs.controller.costFunction.useFeedForwardTermLinkAngVelStar = 1;
 stgs.controller.constraints.limitPassiveAngVel = 5*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
-stgs.controller.constraints.limitMotorVel      = 1*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
+stgs.controller.constraints.limitMotorVel      = 5*pi/180;  % [rad/s] it can be set up to model limit (i.e. 20*180/pi).
 stgs.controller.constraints.limitRoM           = 50*pi/180; % [rad]   it can be set up to model limit (i.e. 50*180/pi).
 % stgs: desired Shape
 stgs.desiredShape.fun = @(x,y,t) ((2^(1/2)*y)/2-(2^(1/2)*x)/2+23/50).^2/2 - ((2^(1/2)*x)/2+(2^(1/2)*y)/2+23/50).^2/2;
